@@ -6,7 +6,7 @@
 [![Commit Activity](https://img.shields.io/github/commit-activity/m/nadimnesar/spring-security-jwt-authentication-module.svg)](https://github.com/nadimnesar/spring-security-jwt-authentication-module/commits)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
 ---
-This project is a ready-to-use starter module for Auth0 authentication and authorization (JWT-based) using Spring Boot 3
+This project is a ready-to-use starter module for Auth0 authentication and authorization (JSON Web Token-based) using Spring Boot 3
 and Spring Security 6. It avoids deprecated methods, ensuring compatibility and security.
 
 ## Prerequisite
