@@ -51,7 +51,7 @@ public class JwtService {
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + jwtExpirationInMs))
                 .and()
-                .signWith(getSignInKey(), Jwts.SIG.HS256)
+                .signWith(getSignInKey())
                 .compact();
     }
 
