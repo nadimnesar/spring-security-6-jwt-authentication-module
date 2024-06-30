@@ -14,7 +14,7 @@ import java.util.Map;
 @RequestMapping("/api/user")
 public class UserController {
 
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     @GetMapping("/")
     public ResponseEntity<?> getUserPage() {
         Map<String, String> hashMap = new HashMap<>();
