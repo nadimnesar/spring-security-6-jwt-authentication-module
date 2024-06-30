@@ -1,4 +1,4 @@
-# <div align="center">Spring Security JWT Authentication and Authorization Module</div>
+# <div align="center">Spring Security JWT Auth Module</div>
 <div align="center">
 
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
