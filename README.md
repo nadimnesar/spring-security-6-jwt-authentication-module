@@ -18,13 +18,21 @@ This is a ready-to-use project starter module, fully configured with JWT authent
 * JDK 21
 * Spring Boot >= 3.3.1
 * Gradle - Groovy
-* <a href="https://www.base64encode.org/" target="_blank">Base64 Encoded Secret Key</a>
+* <a href="https://www.base64encode.org/">Base64 Encoded Secret Key</a>
 
 ## Features
 * Registration 
 * Login
 * API method security with roles
 
-## RESTful APIs Details
+## RESTful API Details
 ### Registration
-    
+1. `POST /api/auth/register`
+2. `POST /api/auth/admin/register`
+
+### Login
+1. `POST /api/auth/login`
+
+### Authorization
+1. `GET /api/user/`
+2. `GET /api/admin/`
