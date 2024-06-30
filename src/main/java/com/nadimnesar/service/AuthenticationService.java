@@ -28,14 +28,12 @@ public class AuthenticationService {
         this.authenticationManager = authenticationManager;
     }
 
-    public boolean validUserDto(UserDto userDto) {
-        if (userDto.getUsername() == null) return false;
-        if (userDto.getPassword() == null) return false;
-        return true;
+    public boolean invalidUserDto(UserDto userDto) {
+        return (userDto.getPassword() == null) || (userDto.getUsername() == null);
     }
 
     public ResponseEntity<?> register(UserDto userDto, UserRole role) {
-        if (!validUserDto(userDto)) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if (invalidUserDto(userDto)) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
         User user = new User();
         user.setUsername(userDto.getUsername());
@@ -57,7 +55,7 @@ public class AuthenticationService {
     }
 
     public ResponseEntity<?> login(UserDto userDto) {
-        if (!validUserDto(userDto)) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if (invalidUserDto(userDto)) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDto.getUsername(),
                 userDto.getPassword());
