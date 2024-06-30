@@ -1,4 +1,4 @@
-# <div align="center">Spring Security JWT Auth Module</div>
+# <div align="center">Spring Security JWT Auth0 Module</div>
 <div align="center">
 
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
@@ -18,6 +18,7 @@ This is a ready-to-use project starter module, fully configured with JWT authent
 * JDK 21
 * Spring Boot >= 3.3.1
 * Gradle - Groovy
+* <a href="https://www.base64encode.org/" target="_blank">Base64 Encoded Secret Key</a>
 
 ## Features
 * Registration 
