@@ -4,8 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringSecurityJwtAuthenticationModuleApplication {
+public class SpringSecurityJwtAuthModuleApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(SpringSecurityJwtAuthenticationModuleApplication.class, args);
+		SpringApplication.run(SpringSecurityJwtAuthModuleApplication.class, args);
 	}
 }
