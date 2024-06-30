@@ -1,1 +1,1 @@
-# spring-security-6-jwt-authentication-module
+# Spring Security JWT Authentication Module
