@@ -20,8 +20,8 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationService(PasswordEncoder passwordEncoder, UserRepository userRepository, JwtService jwtService,
-                                 AuthenticationManager authenticationManager) {
+    public AuthenticationService(PasswordEncoder passwordEncoder, UserRepository userRepository,
+                                 JwtService jwtService, AuthenticationManager authenticationManager) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.jwtService = jwtService;
@@ -33,7 +33,8 @@ public class AuthenticationService {
     }
 
     public ResponseEntity<?> register(UserDto userDto, UserRole role) {
-        if (invalidUserDto(userDto)) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if (invalidUserDto(userDto)) return new ResponseEntity<>(
+                "Please provide both username and password.", HttpStatus.BAD_REQUEST);
 
         User user = new User();
         user.setUsername(userDto.getUsername());
@@ -45,28 +46,33 @@ public class AuthenticationService {
             try {
                 userRepository.save(user);
             } catch (Exception e) {
-                return new ResponseEntity<>(HttpStatus.ALREADY_REPORTED);
+                return new ResponseEntity<>("Username already exists.", HttpStatus.CONFLICT);
             }
             ResponseDto responseDto = new ResponseDto(token, role);
             return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("An error occurred while generating the token.",
+                    HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     public ResponseEntity<?> login(UserDto userDto) {
-        if (invalidUserDto(userDto)) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if (invalidUserDto(userDto)) return new ResponseEntity<>(
+                "Please provide both username and password.", HttpStatus.BAD_REQUEST);
 
-        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDto.getUsername(),
-                userDto.getPassword());
+        User user = userRepository.findByUsername(userDto.getUsername());
+        if (user == null) return new ResponseEntity<>("User not found.", HttpStatus.UNAUTHORIZED);
+
         try {
+            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDto.getUsername(),
+                    userDto.getPassword());
             authenticationManager.authenticate(authToken);
-            User user = userRepository.findByUsername(userDto.getUsername());
-            String token = jwtService.generateToken(user);
-            ResponseDto responseDto = new ResponseDto(token, user.getRole());
-            return new ResponseEntity<>(responseDto, HttpStatus.ACCEPTED);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("Incorrect password.", HttpStatus.UNAUTHORIZED);
         }
+
+        String token = jwtService.generateToken(user);
+        ResponseDto responseDto = new ResponseDto(token, user.getRole());
+        return new ResponseEntity<>(responseDto, HttpStatus.ACCEPTED);
     }
 }
