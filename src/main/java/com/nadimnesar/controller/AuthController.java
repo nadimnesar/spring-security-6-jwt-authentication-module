@@ -14,7 +14,7 @@ public class AuthController {
         this.authenticationService = authenticationService;
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<?> getLogin(@RequestBody UserDto userDto) {
         return authenticationService.login(userDto);
     }
