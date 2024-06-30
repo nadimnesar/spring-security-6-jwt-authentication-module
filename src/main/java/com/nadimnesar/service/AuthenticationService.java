@@ -73,6 +73,6 @@ public class AuthenticationService {
 
         String token = jwtService.generateToken(user);
         ResponseDto responseDto = new ResponseDto(token, user.getRole());
-        return new ResponseEntity<>(responseDto, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 }
