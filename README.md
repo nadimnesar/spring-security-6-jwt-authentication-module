@@ -1,4 +1,4 @@
-# Spring Security JWT Auth0 Module
+# Spring Security JWT Auth Module
 
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
 [![GitHub Issues](https://img.shields.io/github/issues/nadimnesar/spring-security-jwt-authentication-module.svg)](https://github.com/nadimnesar/spring-security-jwt-authentication-module/issues)
@@ -6,7 +6,7 @@
 [![Commit Activity](https://img.shields.io/github/commit-activity/m/nadimnesar/spring-security-jwt-authentication-module.svg)](https://github.com/nadimnesar/spring-security-jwt-authentication-module/commits)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
 ---
-This project is a ready-to-use starter module for Auth0 authentication and authorization (JSON Web Token-based) using Spring Boot and Spring Security. It avoids deprecated methods, ensuring compatibility and security.
+This project is a ready-to-use starter module for authentication and authorization (JSON Web Token-based) using Spring Boot and Spring Security. It avoids deprecated methods, ensuring compatibility and security.
 
 ## Prerequisite
 
