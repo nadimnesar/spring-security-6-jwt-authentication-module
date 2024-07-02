@@ -1,4 +1,4 @@
-package com.nadimnesar;
+package com.nadimnesar.auth;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

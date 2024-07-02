@@ -1,4 +1,4 @@
-package com.nadimnesar;
+package com.nadimnesar.auth;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,10 +1,10 @@
-package com.nadimnesar.service;
+package com.nadimnesar.auth.service;
 
-import com.nadimnesar.dto.ResponseDto;
-import com.nadimnesar.dto.UserDto;
-import com.nadimnesar.enums.UserRole;
-import com.nadimnesar.model.User;
-import com.nadimnesar.repository.UserRepository;
+import com.nadimnesar.auth.dto.ResponseDto;
+import com.nadimnesar.auth.dto.UserDto;
+import com.nadimnesar.auth.enums.UserRole;
+import com.nadimnesar.auth.model.User;
+import com.nadimnesar.auth.repository.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

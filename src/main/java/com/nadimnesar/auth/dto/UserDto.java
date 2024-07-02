@@ -1,4 +1,4 @@
-package com.nadimnesar.dto;
+package com.nadimnesar.auth.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

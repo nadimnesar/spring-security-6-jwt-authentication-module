@@ -1,6 +1,6 @@
-package com.nadimnesar.dto;
+package com.nadimnesar.auth.dto;
 
-import com.nadimnesar.enums.UserRole;
+import com.nadimnesar.auth.enums.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

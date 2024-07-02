@@ -1,8 +1,8 @@
-package com.nadimnesar.controller;
+package com.nadimnesar.auth.controller;
 
-import com.nadimnesar.dto.UserDto;
-import com.nadimnesar.enums.UserRole;
-import com.nadimnesar.service.AuthenticationService;
+import com.nadimnesar.auth.dto.UserDto;
+import com.nadimnesar.auth.enums.UserRole;
+import com.nadimnesar.auth.service.AuthenticationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

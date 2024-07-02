@@ -1,6 +1,6 @@
-package com.nadimnesar.repository;
+package com.nadimnesar.auth.repository;
 
-import com.nadimnesar.model.User;
+import com.nadimnesar.auth.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

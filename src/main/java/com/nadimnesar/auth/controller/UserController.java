@@ -1,4 +1,4 @@
-package com.nadimnesar.controller;
+package com.nadimnesar.auth.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,14 +11,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/admin")
-public class AdminController {
+@RequestMapping("/api/user")
+public class UserController {
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     @GetMapping("/")
-    public ResponseEntity<?> getAdminPage() {
+    public ResponseEntity<?> getUserPage() {
         Map<String, String> hashMap = new HashMap<>();
-        hashMap.put("massage", "Welcome to Admin page!");
+        hashMap.put("massage", "Welcome to User page!");
         return new ResponseEntity<>(hashMap, HttpStatus.ACCEPTED);
     }
 }

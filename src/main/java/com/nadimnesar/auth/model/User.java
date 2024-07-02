@@ -1,6 +1,6 @@
-package com.nadimnesar.model;
+package com.nadimnesar.auth.model;
 
-import com.nadimnesar.enums.UserRole;
+import com.nadimnesar.auth.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

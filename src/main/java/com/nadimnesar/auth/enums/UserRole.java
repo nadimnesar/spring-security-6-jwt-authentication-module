@@ -1,4 +1,4 @@
-package com.nadimnesar.enums;
+package com.nadimnesar.auth.enums;
 
 public enum UserRole {
     USER, ADMIN

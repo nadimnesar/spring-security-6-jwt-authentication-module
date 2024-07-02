@@ -1,6 +1,6 @@
-package com.nadimnesar.config;
+package com.nadimnesar.auth.config;
 
-import com.nadimnesar.service.JwtAuthenticationFilter;
+import com.nadimnesar.auth.service.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
