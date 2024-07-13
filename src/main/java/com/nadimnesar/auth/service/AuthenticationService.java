@@ -48,8 +48,7 @@ public class AuthenticationService {
             } catch (Exception e) {
                 return new ResponseEntity<>("Username already exists.", HttpStatus.CONFLICT);
             }
-            ResponseDto responseDto = new ResponseDto(token, role);
-            return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
+            return new ResponseEntity<>("Registration successful.", HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>("An error occurred while generating the token.",
                     HttpStatus.INTERNAL_SERVER_ERROR);
