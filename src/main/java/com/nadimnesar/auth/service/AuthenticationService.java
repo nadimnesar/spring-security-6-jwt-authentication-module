@@ -42,17 +42,12 @@ public class AuthenticationService {
         user.setRole(role);
 
         try {
-            String token = jwtService.generateToken(user);
-            try {
-                userRepository.save(user);
-            } catch (Exception e) {
-                return new ResponseEntity<>("Username already exists.", HttpStatus.CONFLICT);
-            }
-            return new ResponseEntity<>("Registration successful.", HttpStatus.CREATED);
+            userRepository.save(user);
         } catch (Exception e) {
-            return new ResponseEntity<>("An error occurred while generating the token.",
-                    HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Username already exists.", HttpStatus.CONFLICT);
         }
+
+        return new ResponseEntity<>("Registration successful.", HttpStatus.CREATED);
     }
 
     public ResponseEntity<?> login(UserDto userDto) {
