@@ -64,8 +64,8 @@ public class AuthenticationService {
         if (user == null) return new ResponseEntity<>("User not found.", HttpStatus.UNAUTHORIZED);
 
         try {
-            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDto.getUsername(),
-                    userDto.getPassword());
+            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                    userDto.getUsername(), userDto.getPassword());
             authenticationManager.authenticate(authToken);
         } catch (Exception e) {
             return new ResponseEntity<>("Incorrect password.", HttpStatus.UNAUTHORIZED);

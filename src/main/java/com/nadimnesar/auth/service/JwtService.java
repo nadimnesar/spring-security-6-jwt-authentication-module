@@ -3,6 +3,7 @@ package com.nadimnesar.auth.service;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -18,29 +19,28 @@ public class JwtService {
     @Value("${secret.jwt.expiration}")
     private Integer jwtExpirationInMs;
 
-    private SecretKey getSignInKey() {
-        return Keys.hmacShaKeyFor(secretKey.getBytes());
+    public String extractToken(HttpServletRequest request) {
+        final String authHeader = request.getHeader("Authorization");
+        if (authHeader != null && authHeader.startsWith("Bearer "))
+            return authHeader.substring(7);
+        return null;
     }
 
-    public String extractToken(String authHeader) {
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            return authHeader.substring(7);
-        }
-        return null;
+    private SecretKey getSecretKey() {
+        return Keys.hmacShaKeyFor(secretKey.getBytes());
     }
 
     public Claims getClaimsFromToken(String token) {
         return Jwts
                 .parser()
-                .verifyWith(getSignInKey())
+                .verifyWith(getSecretKey())
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
     }
 
     public String extractUsername(String token) {
-        final Claims claims = getClaimsFromToken(token);
-        return claims.getSubject();
+        return getClaimsFromToken(token).getSubject();
     }
 
     public String generateToken(UserDetails userDetails) {
@@ -51,17 +51,12 @@ public class JwtService {
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + jwtExpirationInMs))
                 .and()
-                .signWith(getSignInKey())
+                .signWith(getSecretKey())
                 .compact();
     }
 
-    private Date extractExpiration(String token) {
-        final Claims claims = getClaimsFromToken(token);
-        return claims.getExpiration();
-    }
-
     private boolean isTokenExpired(String token) {
-        return extractExpiration(token).before(new Date());
+        return getClaimsFromToken(token).getExpiration().before(new Date());
     }
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
