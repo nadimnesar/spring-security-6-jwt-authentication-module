@@ -28,18 +28,23 @@ This project is a ready-to-use starter module for authentication and authorizati
 ### Registration
 
 - `POST /api/auth/register`
-  <img src="/src/main/resources/static/img/auth0-postman-1.png" alt="postman">
+  <img src="/src/main/resources/static/img/postman-01.png" alt="postman">
 - `POST /api/auth/admin/register`
-  <img src="/src/main/resources/static/img/auth0-postman-2.png" alt="postman">
+  <img src="/src/main/resources/static/img/postman-02.png" alt="postman">
 
 ### Login
 
 - `POST /api/auth/login`
-  <img src="/src/main/resources/static/img/auth0-postman-3.png" alt="postman">
+  <img src="/src/main/resources/static/img/postman-03.png" alt="postman">
+
+### Refresh Token
+
+- `POST /api/auth/refresh`
+  <img src="/src/main/resources/static/img/postman-06.png" alt="postman">
 
 ### Authorization
 
 - `GET /api/user/`
-  <img src="/src/main/resources/static/img/auth0-postman-4.png" alt="postman">
+  <img src="/src/main/resources/static/img/postman-04.png" alt="postman">
 - `GET /api/admin/`
-  <img src="/src/main/resources/static/img/auth0-postman-5.png" alt="postman">
+  <img src="/src/main/resources/static/img/postman-05.png" alt="postman">
