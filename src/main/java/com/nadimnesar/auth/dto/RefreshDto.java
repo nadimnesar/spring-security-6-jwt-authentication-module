@@ -1,6 +1,5 @@
 package com.nadimnesar.auth.dto;
 
-import com.nadimnesar.auth.enums.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,8 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResponseDto {
-    private String jwt;
+public class RefreshDto {
     private String refreshToken;
-    private UserRole userRole;
 }

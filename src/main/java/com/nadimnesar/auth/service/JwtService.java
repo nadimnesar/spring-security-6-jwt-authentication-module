@@ -56,7 +56,7 @@ public class JwtService {
     }
 
     private boolean isTokenExpired(String token) {
-        return getClaimsFromToken(token).getExpiration().before(new Date());
+        return getClaimsFromToken(token).getExpiration().before(new Date(System.currentTimeMillis()));
     }
 
     public boolean isTokenValid(String token, UserDetails userDetails) {

@@ -12,6 +12,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 public class AuthenticationService {
 
@@ -19,13 +22,16 @@ public class AuthenticationService {
     private final UserRepository userRepository;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final RefreshTokenService refreshTokenService;
 
     public AuthenticationService(PasswordEncoder passwordEncoder, UserRepository userRepository,
-                                 JwtService jwtService, AuthenticationManager authenticationManager) {
+                                 JwtService jwtService, AuthenticationManager authenticationManager,
+                                 RefreshTokenService refreshTokenService) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.jwtService = jwtService;
         this.authenticationManager = authenticationManager;
+        this.refreshTokenService = refreshTokenService;
     }
 
     public boolean invalidUserDto(UserDto userDto) {
@@ -65,8 +71,20 @@ public class AuthenticationService {
             return new ResponseEntity<>("Incorrect password.", HttpStatus.UNAUTHORIZED);
         }
 
-        String token = jwtService.generateToken(user);
-        ResponseDto responseDto = new ResponseDto(token, user.getRole());
+        String jwtToken = jwtService.generateToken(user);
+        String refreshToken = refreshTokenService.generateRefreshToken(user.getUsername());
+
+        ResponseDto responseDto = new ResponseDto(jwtToken, refreshToken, user.getRole());
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
+    }
+
+    public ResponseEntity<?> refresh(String token) {
+        if (refreshTokenService.isValid(token)) {
+            String jwtToken = refreshTokenService.getJwtToken(token);
+            Map<String, String> hashMap = new HashMap<>();
+            hashMap.put("JwtToken", jwtToken);
+            return new ResponseEntity<>(hashMap, HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>("Refresh token expired.", HttpStatus.UNAUTHORIZED);
     }
 }
