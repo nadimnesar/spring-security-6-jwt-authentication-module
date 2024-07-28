@@ -35,7 +35,9 @@ public class AuthenticationService {
     }
 
     public boolean invalidUserDto(UserDto userDto) {
-        return (userDto.getPassword() == null) || (userDto.getUsername() == null);
+        if(userDto.getUsername() == null || userDto.getUsername().isEmpty()) return true;
+        if(userDto.getPassword() == null || userDto.getPassword().isEmpty()) return true;
+        return false;
     }
 
     public ResponseEntity<?> register(UserDto userDto, UserRole role) {
