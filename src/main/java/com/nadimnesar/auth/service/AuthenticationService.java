@@ -39,8 +39,12 @@ public class AuthenticationService {
     }
 
     public ResponseEntity<?> register(UserDto userDto, UserRole role) {
-        if (invalidUserDto(userDto)) return new ResponseEntity<>(
-                "Please provide both username and password.", HttpStatus.BAD_REQUEST);
+        Map<String, Object> response = new HashMap<>();
+
+        if (invalidUserDto(userDto)) {
+            response.put("message", "Please provide both username and password.");
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
 
         User user = new User();
         user.setUsername(userDto.getUsername());
@@ -50,25 +54,35 @@ public class AuthenticationService {
         try {
             userRepository.save(user);
         } catch (Exception e) {
-            return new ResponseEntity<>("Username already exists.", HttpStatus.CONFLICT);
+            response.put("message", "Username already exists.");
+            return new ResponseEntity<>(response, HttpStatus.CONFLICT);
         }
 
-        return new ResponseEntity<>("Registration successful.", HttpStatus.CREATED);
+        response.put("message", String.format("%s registered successfully.", role.name()));
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     public ResponseEntity<?> login(UserDto userDto) {
-        if (invalidUserDto(userDto)) return new ResponseEntity<>(
-                "Please provide both username and password.", HttpStatus.BAD_REQUEST);
+        Map<String, Object> response = new HashMap<>();
+
+        if (invalidUserDto(userDto)){
+            response.put("message", "Please provide both username and password.");
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
 
         User user = userRepository.findByUsername(userDto.getUsername());
-        if (user == null) return new ResponseEntity<>("User not found.", HttpStatus.UNAUTHORIZED);
+        if (user == null){
+            response.put("message", "User not found.");
+            return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
+        }
 
         try {
             UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                     userDto.getUsername(), userDto.getPassword());
             authenticationManager.authenticate(authToken);
         } catch (Exception e) {
-            return new ResponseEntity<>("Incorrect password.", HttpStatus.UNAUTHORIZED);
+            response.put("message", "Invalid password.");
+            return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
         }
 
         String jwtToken = jwtService.generateToken(user);
@@ -79,12 +93,14 @@ public class AuthenticationService {
     }
 
     public ResponseEntity<?> refresh(String token) {
+        Map<String, Object> response = new HashMap<>();
+
         if (refreshTokenService.isValid(token)) {
             String jwtToken = refreshTokenService.getJwtToken(token);
-            Map<String, String> hashMap = new HashMap<>();
-            hashMap.put("JwtToken", jwtToken);
-            return new ResponseEntity<>(hashMap, HttpStatus.CREATED);
+            response.put("jwt", jwtToken);
+            return new ResponseEntity<>(response, HttpStatus.CREATED);
         }
-        return new ResponseEntity<>("Refresh token expired.", HttpStatus.UNAUTHORIZED);
+        response.put("message", "Refresh token invalid or expired.");
+        return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
     }
 }
